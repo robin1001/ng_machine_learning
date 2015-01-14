@@ -39,12 +39,14 @@ grad = zeros(size(theta));
 
 
 
-NoTheta0 = [0;ones(length(theta)-1,1)];
-J = sum(-y.*log(sigmoid(X*theta)) - (1-y).*log(1-sigmoid(X*theta)))/m + lambda/(2*m)*theta'*(NoTheta0.*theta);
+%NoTheta0 = [0;ones(length(theta)-1,1)];
+%J = sum(-y.*log(sigmoid(X*theta)) - (1-y).*log(1-sigmoid(X*theta)))/m + lambda/(2*m)*theta'*(NoTheta0.*theta);
+%
+%grad = ((sigmoid(X*theta)-y)'*X)'/m + (lambda/m)*(NoTheta0.*theta);
 
-grad = ((sigmoid(X*theta)-y)'*X)'/m + (lambda/m)*(NoTheta0.*theta);
-
-
+t = sigmoid(X * theta);
+J = -((y'*log(t) + (1-y') * log(1-t)) +(0.5*lambda*theta'*theta)) / m ;
+grad = -(X' * (y - t) + lambda * theta) / m;
 
 
 % =============================================================
